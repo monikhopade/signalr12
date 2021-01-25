@@ -1,14 +1,47 @@
-# signalr1
+# signalr_flutter
 
-A new Flutter package project.
+A flutter plugin for .net SignalR client.
 
-## Getting Started
+## Usage
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+First of all, Initialize SignalR and connect to your server.
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+```dart
+SignalR1 signalR = SignalR1(
+        '<Your server url here>',
+        "<Your hub name here>",
+        hubMethods: ["<Your Hub Method Names>"]
+        statusChangeCallback: (status) => print(status),
+        hubCallback: (methodName, message) => print('MethodName = $methodName, Message = $message'));
+signalR1.connect();
+```
+
+Here `statusChangeCallback` will get called whenever connection status with server changes.
+
+`hubCallback` will receive calls from the server if you subscribe to any hub method. You can do that with `hubMethods`.
+
+`hubMethods` are the hub method names you want to subscribe.
+
+There is a `headers` parameters also which takes a `Map<String, String>`.
+
+You can also invoke any server method.
+
+```dart
+signalR1.invokeMethod("<Your method name here>", arguments: ["argument1", "argument2"]);
+```
+
+
+If you are trying to connect with a HTTP url, then you need to add the following lines to the manifest of your android project.
+
+```xml
+<application
+        android:usesCleartextTraffic="true">
+</application>
+```
+
+This is because of the [Network Security Config](https://developer.android.com/training/articles/security-config#CleartextTrafficPermitted).
+
+
+For more info check example.
+
+Any issue or PR is always welcome.
