@@ -1,4 +1,4 @@
-# signalr1
+# signalr12
 
 A flutter plugin for .net SignalR client.
 
