@@ -1,3 +1,5 @@
+library signalr1;
+
 import 'dart:async';
 import 'package:flutter/services.dart';
 
